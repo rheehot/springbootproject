@@ -6,11 +6,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
 import javax.sql.DataSource;
 import java.util.List;
 
 import static java.lang.System.exit;
+
+//for jsr310 java 8 java.time.*
+@EntityScan(
+        basePackageClasses = {SpringBootConsoleApplication.class, Jsr310JpaConverters.class}
+)
 
 @SpringBootApplication
 public class SpringBootConsoleApplication implements CommandLineRunner {
@@ -41,5 +50,12 @@ public class SpringBootConsoleApplication implements CommandLineRunner {
         System.out.println("Done!");
 
         exit(0);
+    }
+
+    @Bean
+    public CommandLineRunner run(ApplicationContext appContext) {
+        return args -> {
+            System.out.println("hello World!");
+        };
     }
 }

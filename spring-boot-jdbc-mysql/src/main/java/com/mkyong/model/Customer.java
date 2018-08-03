@@ -1,13 +1,21 @@
 package com.mkyong.model;
 
-import java.util.Date;
+import javax.persistence.*;
+import java.sql.Date;
+import java.time.LocalDate;
 
+@Entity
 public class Customer {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     String name;
     String email;
+
+    @Column(name = "CREATED_DATE")
     Date date;
+//    Date date;
 
     public Customer(int id, String name, String email, Date date) {
         this.id = id;
